@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# sitepulse: your data and your list of sites stay local
+sitepulse-data/
+sites.json
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

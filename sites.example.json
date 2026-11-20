@@ -1,0 +1,23 @@
+{
+  "accept_language": "en",
+  "cta_languages": ["en", "it"],
+  "sites": [
+    {
+      "name": "Example shop",
+      "url": "https://example.com",
+      "purpose": "leads",
+      "goal": "a phone call from a private customer",
+      "active": true
+    },
+    {
+      "name": "Example blog",
+      "url": "https://example.org",
+      "purpose": "content",
+      "goal": "newsletter sign-up",
+      "cta_words": ["subscribe", "sign up", "read more"],
+      "accept_language": "en-GB,en;q=0.9",
+      "path": "",
+      "active": false
+    }
+  ]
+}

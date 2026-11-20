@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sitepulse"
+version = "0.1.0"
+description = "Measure your websites weekly, compare with last week, act on at most three things per site."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Nicola Valigi" }]
+keywords = ["website", "audit", "seo", "monitoring", "report"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/nicolavaligi/sitepulse"
+Issues = "https://github.com/nicolavaligi/sitepulse/issues"
+
+[project.scripts]
+sitepulse = "sitepulse.cli:main"
+
+[tool.setuptools]
+packages = ["sitepulse"]
