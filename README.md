@@ -74,24 +74,27 @@ Capture a representative set of public pages and use one as the template for a n
 page's metadata. The commands use Python's standard library and require no API key.
 
 ```bash
+mkdir -p sitepulse-data
 python3 -m sitepulse seo-capture \
-  --url https://tutelaespropri.it/ \
-  --url https://tutelaespropri.it/calcolo-indennita-di-esproprio/ \
-  --output tutela-seo.json
+  --url https://example.org/ \
+  --url https://example.org/guides/topic/ \
+  --output sitepulse-data/reference-seo.json
 
-python3 -m sitepulse seo-head tutela-seo.json \
-  --source https://tutelaespropri.it/calcolo-indennita-di-esproprio/ \
-  --canonical https://example.com/guide/indennita/ \
-  --title "Guida all’indennità di esproprio" \
-  --description "Documenti e passaggi per esaminare una proposta di indennità." \
-  --brand "Nome del progetto" > seo-head.html
+python3 -m sitepulse seo-head sitepulse-data/reference-seo.json \
+  --source https://example.org/guides/topic/ \
+  --canonical https://example.com/guides/topic/ \
+  --title "A guide to the topic" \
+  --description "Documents and steps for reviewing a proposal." \
+  --brand "Project name" > sitepulse-data/seo-head.html
 ```
 
 The snapshot records HTTP results, titles, descriptions, canonicals, robots
 directives, hreflang, social tags, JSON-LD types, headings, internal links and
 missing image alt attributes. It reads only the requested pages and does not
 execute JavaScript. A partial capture keeps errors alongside successful pages
-and exits with status 1. Choose a fresh output filename for each capture.
+and exits with status 1. Choose a fresh output filename for each capture. Keep research URLs, snapshots,
+and reports locally in the ignored `sitepulse-data/` directory. Use fictional
+sites in repository examples.
 
 The generated fragment uses your own title, description, canonical URL, optional
 brand and optional `--image` URL. It picks up the source's title separator when
@@ -99,8 +102,6 @@ a brand is provided and its Open Graph and Twitter tag families. Replace the
 equivalent tags in the target page's head or use the values in the framework's
 metadata API. Review indexing, hreflang and structured data for the target
 project independently.
-
-See the [Tutela Espropri analysis](docs/tutela-espropri.md) for a worked example.
 
 ## Configuration
 
