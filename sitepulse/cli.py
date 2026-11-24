@@ -15,7 +15,7 @@ import sys
 import urllib.parse
 from datetime import datetime
 
-from . import __version__, audit, render
+from . import __version__, audit, render, seo
 
 log = logging.getLogger("sitepulse")
 
@@ -65,13 +65,14 @@ def build_parser():
         prog="sitepulse",
         description="Measure your websites weekly; act on at most three things per site.")
     ap.add_argument("--version", action="version", version="sitepulse " + __version__)
-    sub = ap.add_subparsers(dest="command", metavar="{audit,render,run}")
+    sub = ap.add_subparsers(dest="command")
     sub.add_parser("audit", parents=[common, audit_opts],
                    help="measure the sites and write data + history")
     sub.add_parser("render", parents=[common, render_opts],
                    help="build the HTML report from a run's data")
     sub.add_parser("run", parents=[common, audit_opts, render_opts],
                    help="audit, then render")
+    seo.add_commands(sub)
     return ap
 
 
@@ -141,6 +142,12 @@ def main(argv=None):
     if not args.command:
         ap.print_help(sys.stderr)
         return 2
+    if args.command in ("seo-capture", "seo-head"):
+        try:
+            return seo.run(args)
+        except (ValueError, OSError, KeyError, TypeError) as e:
+            print("sitepulse: %s" % e, file=sys.stderr)
+            return 2
     logging.basicConfig(stream=sys.stderr, force=True,
                         level=logging.DEBUG if args.verbose else logging.WARNING,
                         format="%(levelname)s %(name)s: %(message)s")

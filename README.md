@@ -68,6 +68,40 @@ sitepulse run      audit, then render
 
 One site takes roughly 10 seconds.
 
+## Reuse SEO settings
+
+Capture a representative set of public pages and use one as the template for a new
+page's metadata. The commands use Python's standard library and require no API key.
+
+```bash
+python3 -m sitepulse seo-capture \
+  --url https://tutelaespropri.it/ \
+  --url https://tutelaespropri.it/calcolo-indennita-di-esproprio/ \
+  --output tutela-seo.json
+
+python3 -m sitepulse seo-head tutela-seo.json \
+  --source https://tutelaespropri.it/calcolo-indennita-di-esproprio/ \
+  --canonical https://example.com/guide/indennita/ \
+  --title "Guida all’indennità di esproprio" \
+  --description "Documenti e passaggi per esaminare una proposta di indennità." \
+  --brand "Nome del progetto" > seo-head.html
+```
+
+The snapshot records HTTP results, titles, descriptions, canonicals, robots
+directives, hreflang, social tags, JSON-LD types, headings, internal links and
+missing image alt attributes. It reads only the requested pages and does not
+execute JavaScript. A partial capture keeps errors alongside successful pages
+and exits with status 1. Choose a fresh output filename for each capture.
+
+The generated fragment uses your own title, description, canonical URL, optional
+brand and optional `--image` URL. It picks up the source's title separator when
+a brand is provided and its Open Graph and Twitter tag families. Replace the
+equivalent tags in the target page's head or use the values in the framework's
+metadata API. Review indexing, hreflang and structured data for the target
+project independently.
+
+See the [Tutela Espropri analysis](docs/tutela-espropri.md) for a worked example.
+
 ## Configuration
 
 Copy `sites.example.json` to `sites.json` and list your sites:
